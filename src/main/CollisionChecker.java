@@ -33,13 +33,29 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
+                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+                tileNum1 = gp.tileManager.mapTileNumber[entityLeftCol][entityBottomRow];
+                tileNum2 = gp.tileManager.mapTileNumber[entityRightCol][entityBottomRow];
+                if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
+                    entity.collisionOn = true;
+                }
                 break;
             case "left":
+                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+                tileNum1 = gp.tileManager.mapTileNumber[entityLeftCol][entityTopRow];
+                tileNum2 = gp.tileManager.mapTileNumber[entityLeftCol][entityBottomRow];
+                if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
+                    entity.collisionOn = true;
+                }
                 break;
             case "right":
+                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+                tileNum1 = gp.tileManager.mapTileNumber[entityRightCol][entityTopRow];
+                tileNum2 = gp.tileManager.mapTileNumber[entityRightCol][entityBottomRow];
+                if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
+                    entity.collisionOn = true;
+                }
                 break;
         }
-
-
     }
 }
