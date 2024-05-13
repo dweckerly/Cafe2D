@@ -43,6 +43,10 @@ public class GamePanel extends JPanel implements Runnable {
         setFocusable(true);
     }
 
+    public void setupGame() {
+        assetSetter.setObject();
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -77,7 +81,16 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // TILES
         tileManager.draw(g2);
+        //OBJECTS
+        for (SuperObject object : objects) {
+            if (object != null) {
+                object.draw(g2, this);
+            }
+        }
+        // PLAYER
         player.draw(g2);
         g2.dispose();
     }
