@@ -3,6 +3,7 @@ package main;
 import object.Object_Chest;
 import object.Object_Door;
 import object.Object_Key;
+import object.Object_Potion;
 
 public class AssetSetter {
     GamePanel gp;
@@ -27,5 +28,9 @@ public class AssetSetter {
         gp.objects[3] = new Object_Door();
         gp.objects[3].worldX = 15 * gp.tileSize;
         gp.objects[3].worldY = 10 * gp.tileSize;
+
+        gp.objects[4] = new Object_Potion();
+        gp.objects[4].worldX = 2 * gp.tileSize;
+        gp.objects[4].worldY = 10 * gp.tileSize;
     }
 }
