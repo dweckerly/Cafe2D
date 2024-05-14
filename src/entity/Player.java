@@ -15,14 +15,17 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    public Player( GamePanel gp, KeyHandler keyHandler) {
+    public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(gp.tileSize / 6, gp.tileSize / 3, (int) (gp.tileSize / 1.5), (int) (gp.tileSize / 1.5));
+        solidAreaDefaultX = gp.tileSize / 6;
+        solidAreaDefaultY = gp.tileSize / 3;
+
+        solidArea = new Rectangle(solidAreaDefaultX, solidAreaDefaultY, (int) (gp.tileSize / 1.5), (int) (gp.tileSize / 1.5));
 
         setDefaultValues();
         getPlayerImage();
@@ -65,6 +68,9 @@ public class Player extends Entity {
             // CHECK TILE COLLISION
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
+
+            // CHECK OBJECT COLLISION
+            int objectIndex = gp.collisionChecker.checkObject(this, true);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
