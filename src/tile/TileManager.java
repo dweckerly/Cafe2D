@@ -1,9 +1,11 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,26 +25,24 @@ public class TileManager {
     }
 
     public void getTileImage() {
+        setup(0, "grass_1.png", false);
+        setup(1, "wall_1.png", true);
+        setup(2, "water_1.png", true);
+        setup(3, "sand_1.png", false);
+        setup(4, "snow_1.png", false);
+        setup(5, "shrub_1.png", true);
+        setup(6, "tree_1.png", true);
+    }
+
+    public void setup(int index, String imageName, boolean collision) {
+        UtilityTool utilityTool = new UtilityTool();
         try {
-            tiles[0] = new Tile();
-            tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass_1.png"));
-            tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall_1.png"));
-            tiles[1].collision = true;
-            tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water_1.png"));
-            tiles[2].collision = true;
-            tiles[3] = new Tile();
-            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand_1.png"));
-            tiles[4] = new Tile();
-            tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/snow_1.png"));
-            tiles[5] = new Tile();
-            tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/shrub_1.png"));
-            tiles[5].collision = true;
-            tiles[6] = new Tile();
-            tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree_1.png"));
-            tiles[6].collision = true;
-        } catch (IOException e) {
+            tiles[index] = new Tile();
+            tiles[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName));
+            tiles[index].image = utilityTool.scaleImage(tiles[index].image, gp.tileSize, gp.tileSize);
+            tiles[index].collision = collision;
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -90,7 +90,7 @@ public class TileManager {
                 worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-                g2.drawImage(tiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tiles[tileNum].image, screenX, screenY, null);
             }
             worldCol++;
             if (worldCol == gp.maxWorldCol) {
