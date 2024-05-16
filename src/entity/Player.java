@@ -2,22 +2,18 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHandler keyHandler;
 
     public final int screenX;
     public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
-        this.gp = gp;
+        super(gp);
         this.keyHandler = keyHandler;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -29,7 +25,7 @@ public class Player extends Entity {
         solidArea = new Rectangle(solidAreaDefaultX, solidAreaDefaultY, (int) (gp.tileSize / 1.5), (int) (gp.tileSize / 1.5));
 
         setDefaultValues();
-        getPlayerImage();
+        getPlayerImages();
     }
 
     public void setDefaultValues() {
@@ -39,28 +35,15 @@ public class Player extends Entity {
         direction = "down";
     }
 
-    public void getPlayerImage() {
-        up1 = setupPlayerImage("player_up_1.png");
-        up2 = setupPlayerImage("player_up_2.png");
-        down1 = setupPlayerImage("player_down_1.png");
-        down2 = setupPlayerImage("player_down_2.png");
-        left1 = setupPlayerImage("player_left_1.png");
-        left2 = setupPlayerImage("player_left_2.png");
-        right1 = setupPlayerImage("player_right_1.png");
-        right2 = setupPlayerImage("player_right_2.png");
-    }
-
-    public BufferedImage setupPlayerImage(String imageName) {
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image =  ImageIO.read(getClass().getResourceAsStream("/player/" + imageName));
-            image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+    public void getPlayerImages() {
+        up1 = setupImage("/player/player_up_1.png");
+        up2 = setupImage("/player/player_up_2.png");
+        down1 = setupImage("/player/player_down_1.png");
+        down2 = setupImage("/player/player_down_2.png");
+        left1 = setupImage("/player/player_left_1.png");
+        left2 = setupImage("/player/player_left_2.png");
+        right1 = setupImage("/player/player_right_1.png");
+        right2 = setupImage("/player/player_right_2.png");
     }
 
     public void update() {
@@ -82,6 +65,10 @@ public class Player extends Entity {
             // CHECK OBJECT COLLISION
             int objectIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objectIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npcs);
+            interactNPC(npcIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
@@ -115,6 +102,12 @@ public class Player extends Entity {
     public void pickUpObject(int index) {
         if (index != 999) {
 
+        }
+    }
+
+    public void interactNPC(int index) {
+        if (index != 999) {
+            System.out.println("ran into NPC");
         }
     }
 

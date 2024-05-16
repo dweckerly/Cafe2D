@@ -1,9 +1,6 @@
 package main;
 
-import object.Object_Chest;
-import object.Object_Door;
-import object.Object_Key;
-import object.Object_Potion;
+import entity.NPC_GW;
 
 public class AssetSetter {
     GamePanel gp;
@@ -12,7 +9,7 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject() {
+    public void setObjects() {
 //        gp.objects[0] = new Object_Key(gp);
 //        gp.objects[0].worldX = 3 * gp.tileSize;
 //        gp.objects[0].worldY = 7 * gp.tileSize;
@@ -32,5 +29,11 @@ public class AssetSetter {
 //        gp.objects[4] = new Object_Potion(gp);
 //        gp.objects[4].worldX = 2 * gp.tileSize;
 //        gp.objects[4].worldY = 10 * gp.tileSize;
+    }
+
+    public void setNPCs() {
+        gp.npcs[0] = new NPC_GW(gp);
+        gp.npcs[0].worldX = 2 * gp.tileSize;
+        gp.npcs[0].worldY = 10 * gp.tileSize;
     }
 }
