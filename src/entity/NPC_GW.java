@@ -11,6 +11,7 @@ public class NPC_GW extends Entity {
         speed = 2;
 
         getNPCImages();
+        setDialogue();
     }
 
     public void getNPCImages() {
@@ -22,6 +23,13 @@ public class NPC_GW extends Entity {
         left2 = setupImage("/npc/gw_left_1.png");
         right1 = setupImage("/npc/gw_right_1.png");
         right2 = setupImage("/npc/gw_right_1.png");
+    }
+
+    public void setDialogue() {
+        dialogues[0] = "Boy howdy!";
+        dialogues[1] = "What a hot day... I like ice cubes";
+        dialogues[2] = "But they make my hands so cold...";
+        dialogues[3] = "Wish I had a little sweet kitten to warm them up and slip it in my mouth.";
     }
 
     public void setAction() {
@@ -43,6 +51,14 @@ public class NPC_GW extends Entity {
             }
             actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
     }
 
 }

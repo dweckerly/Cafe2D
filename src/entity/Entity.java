@@ -25,6 +25,9 @@ public class Entity {
 
     public int actionLockCounter;
 
+    String[] dialogues = new String[20];
+    int dialogueIndex = 0;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
         solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
@@ -44,6 +47,7 @@ public class Entity {
     }
 
     public void setAction() {}
+    public void speak() {}
 
     public void update() {
         setAction();
