@@ -62,7 +62,10 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString(currentDialogue, x, y);
+        for (String line : currentDialogue.split("\n")) {
+            g2.drawString(line, x, y);
+            y += gp.tileSize;
+        }
     }
 
     public void drawUIWindow(int x, int y, int width, int height) {
