@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -39,7 +40,9 @@ public class UI {
         this.g2 = g2;
         g2.setFont(baseFont);
         g2.setColor(Color.white);
-
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
         if (gp.gameState == gp.playState) {
             // do play state stuff later
         }
@@ -51,10 +54,16 @@ public class UI {
         }
     }
 
+    public void drawTitleScreen() {
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80));
+        String text = "Game Title";
+        int x = getXForCenteredText(text);
+        int y = gp.tileSize * 3;
+    }
+
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80));
         String text = "PAUSED";
-        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = getXForCenteredText(text);
         int y = gp.screenHeight / 2;
         g2.drawString(text, x, y);
@@ -88,5 +97,33 @@ public class UI {
     public int getXForCenteredText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return (gp.screenWidth / 2) - (length / 2);
+    }
+
+    public String createWrappedText(String text, int windowWidth) {
+        StringBuilder output = new StringBuilder();
+        String temp = "";
+        int length = 0;
+        for (String word : text.split(" ")) {
+            if (temp.isEmpty()) {
+                temp = word + " ";
+            } else {
+                temp += word + " ";
+            }
+//            length = (int) g2.getFontMetrics().getStringBounds(temp, g2).getWidth() * 32;
+//            length = g2.getFontMetrics().stringWidth(temp);
+            Rectangle2D stringBox = g2.getFontMetrics().getStringBounds(temp, g2);
+            length = (int) stringBox.getWidth();
+            if (length > windowWidth) {
+                System.out.println("Length: " + length);
+                output.append("\n").append(word).append(" ");
+                temp = word + " ";
+            }
+            else {
+                output.append(word).append(" ");
+            }
+        }
+        System.out.println(temp);
+        System.out.println("Length: " + length);
+        return output.toString();
     }
 }

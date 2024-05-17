@@ -52,7 +52,8 @@ public class Entity {
         if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        gp.ui.currentDialogue = gp.ui.createWrappedText(dialogues[dialogueIndex], gp.tileSize * 3);
+        System.out.println(gp.ui.currentDialogue);
         dialogueIndex++;
 
         switch (gp.player.direction) {

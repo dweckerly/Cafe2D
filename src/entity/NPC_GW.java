@@ -26,10 +26,10 @@ public class NPC_GW extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Boy howdy!";
-        dialogues[1] = "What a hot day... I like ice cubes";
+        dialogues[0] = "Here is a really long string of text to test out if my automatic string wrapping function is working properly or not... I'm going to guess that it's not.";
+        dialogues[1] = "What a hot day... I like ice cubes. I also like it when my text wrapping function works perfectly on the first try!";
         dialogues[2] = "But they make my hands so cold...";
-        dialogues[3] = "Wish I had a little sweet kitten to warm them \nup and slip it in my mouth.";
+        dialogues[3] = "Wish I had a little sweet kitten to warm them up and slip it in my mouth.";
     }
 
     public void setAction() {
