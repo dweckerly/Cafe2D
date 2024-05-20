@@ -75,7 +75,7 @@ public class UI {
         int width = gp.screenWidth - (gp.tileSize * 4);
         int height = gp.tileSize * 4;
         drawUIWindow(x, y, width, height);
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, gp.tileSize / 2));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, (float) gp.tileSize / 2));
         x += gp.tileSize;
         y += gp.tileSize;
         for (String line : currentDialogue.split("\n")) {
@@ -100,6 +100,8 @@ public class UI {
     }
 
     public String createWrappedText(String text, int windowWidth) {
+        // need to set font again for proper text length calculation.
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, (float) gp.tileSize / 2));
         StringBuilder output = new StringBuilder();
         String temp = "";
         int length = 0;
@@ -109,12 +111,8 @@ public class UI {
             } else {
                 temp += word + " ";
             }
-//            length = (int) g2.getFontMetrics().getStringBounds(temp, g2).getWidth() * 32;
-//            length = g2.getFontMetrics().stringWidth(temp);
-            Rectangle2D stringBox = g2.getFontMetrics().getStringBounds(temp, g2);
-            length = (int) stringBox.getWidth();
+            length = (int) g2.getFontMetrics().getStringBounds(temp, g2).getWidth();
             if (length > windowWidth) {
-                System.out.println("Length: " + length);
                 output.append("\n").append(word).append(" ");
                 temp = word + " ";
             }
@@ -122,8 +120,6 @@ public class UI {
                 output.append(word).append(" ");
             }
         }
-        System.out.println(temp);
-        System.out.println("Length: " + length);
         return output.toString();
     }
 }

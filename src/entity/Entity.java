@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Entity {
 
@@ -38,7 +39,7 @@ public class Entity {
         BufferedImage image = null;
 
         try {
-            image =  ImageIO.read(getClass().getResourceAsStream(imagePath));
+            image =  ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
             image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,8 +53,9 @@ public class Entity {
         if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
-        gp.ui.currentDialogue = gp.ui.createWrappedText(dialogues[dialogueIndex], gp.tileSize * 3);
-        System.out.println(gp.ui.currentDialogue);
+        // tilesize * 10 because the dialogue window is * 12 and this gives
+        // one tile buffer on each side to the text
+        gp.ui.currentDialogue = gp.ui.createWrappedText(dialogues[dialogueIndex], gp.tileSize * 10);
         dialogueIndex++;
 
         switch (gp.player.direction) {
