@@ -1,9 +1,12 @@
 package main;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class UI {
     GamePanel gp;
@@ -17,6 +20,8 @@ public class UI {
     public boolean gameFinished = false;
 
     public String currentDialogue = "";
+
+    public int commandNumber = 0;
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -59,6 +64,51 @@ public class UI {
         String text = "Game Title";
         int x = getXForCenteredText(text);
         int y = gp.tileSize * 3;
+        // SHADOW
+        g2.setColor(Color.gray);
+        g2.drawString(text, x+4, y+4);
+        // MAIN TEXT COLOR
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        // SOME IMAGE
+        x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
+        y += gp.tileSize * 2;
+
+        try {
+            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/pot-1.png")));
+            g2.drawImage(image, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+        } catch (IOException e) { e.printStackTrace(); }
+
+        // MENU
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 48F));
+
+        text = "NEW GAME";
+        x = getXForCenteredText(text);
+        y += gp.tileSize * 3;
+        g2.drawString(text, x, y);
+
+        if (commandNumber == 0) {
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
+
+        text = "CONTINUE";
+        x = getXForCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+
+        if (commandNumber == 1) {
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
+
+        text = "QUIT";
+        x = getXForCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        
+        if (commandNumber == 2) {
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
     }
 
     public void drawPauseScreen() {

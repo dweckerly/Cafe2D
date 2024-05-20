@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_GW;
+import object.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -29,6 +30,11 @@ public class AssetSetter {
 //        gp.objects[4] = new Object_Potion(gp);
 //        gp.objects[4].worldX = 2 * gp.tileSize;
 //        gp.objects[4].worldY = 10 * gp.tileSize;
+//
+//        gp.objects[5] = new Object_Pot(gp);
+//        gp.objects[4].worldX = 25 * gp.tileSize;
+//        gp.objects[4].worldY = 20 * gp.tileSize;
+
     }
 
     public void setNPCs() {
