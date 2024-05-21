@@ -33,6 +33,10 @@ public class Player extends Entity {
         worldY = gp.tileSize * 5;
         speed = 4;
         direction = "down";
+
+        // PLAYER STATUS
+        maxHealth = 12;
+        health = 10;
     }
 
     public void getPlayerImages() {
@@ -69,6 +73,9 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npcs);
             interactNPC(npcIndex);
+
+            // CHECK EVENT
+            gp.eventHandler.checkEvent();
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
