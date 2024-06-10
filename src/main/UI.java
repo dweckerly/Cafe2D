@@ -197,7 +197,8 @@ public class UI {
         return (gp.screenWidth / 2) - (length / 2);
     }
 
-    public String createWrappedText(String text, int windowWidth) {
+    public String createWrappedText(String text) {
+        int windowWidth = gp.tileSize * 10;
         // need to set font again for proper text length calculation.
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, (float) gp.tileSize / 2));
         StringBuilder output = new StringBuilder();

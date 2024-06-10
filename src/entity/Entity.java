@@ -59,7 +59,7 @@ public class Entity {
         }
         // tilesize * 10 because the dialogue window is * 12 and this gives
         // one tile buffer on each side to the text
-        gp.ui.currentDialogue = gp.ui.createWrappedText(dialogues[dialogueIndex], gp.tileSize * 10);
+        gp.ui.currentDialogue = gp.ui.createWrappedText(dialogues[dialogueIndex]);
         dialogueIndex++;
 
         switch (gp.player.direction) {
